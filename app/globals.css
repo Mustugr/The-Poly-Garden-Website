@@ -1,26 +1,207 @@
 @import "tailwindcss";
 
+@theme {
+  /* Brand palette — cream/ivory + warm gold + ink */
+  --color-cream: #f8f0e5;
+  --color-cream-soft: #fbf6ee;
+  --color-cream-deep: #f1e5d1;
+  --color-ink: #1a1a1a;
+  --color-ink-soft: #2c2c2c;
+  --color-gold: #c9a961;
+  --color-gold-deep: #b89651;
+  --color-gold-light: #e0c997;
+  --color-rose: #e8c4a8;
+  --color-noir: #0e0e0e;
+  --color-noir-soft: #1c1c1c;
+
+  /* Typography */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", "Times New Roman",
+    serif;
+  --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-script: var(--font-pinyon), "Pinyon Script", cursive;
+
+  /* Brand-specific tokens */
+  --tracking-wider-plus: 0.18em;
+  --tracking-widest-plus: 0.32em;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-cream);
+}
+
+/* Elegant gold rule (matches "—— THE ——" / "—— SUGAR ——" boards) */
+.gold-rule {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-gold);
+  letter-spacing: var(--tracking-widest-plus);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+.gold-rule::before,
+.gold-rule::after {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background: var(--color-gold);
+}
+
+/* Display heading helper */
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+/* Letter-spaced caps */
+.eyebrow {
+  font-family: var(--font-body);
+  letter-spacing: var(--tracking-widest-plus);
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* Smooth scroll for anchor jumps */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Form input baseline */
+.brand-input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(201, 169, 97, 0.35);
+  padding: 0.7rem 0.9rem;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.brand-input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  background: rgba(255, 255, 255, 0.5);
+}
+.brand-input::placeholder {
+  color: rgba(26, 26, 26, 0.35);
+}
+
+.brand-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--color-gold);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+}
+.brand-checkbox input[type="checkbox"]:checked {
+  background: var(--color-gold);
+}
+.brand-checkbox input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  inset: 2px 4px;
+  border-right: 1.5px solid var(--color-cream);
+  border-bottom: 1.5px solid var(--color-cream);
+  transform: rotate(45deg) translate(-1px, -1px);
+  width: 4px;
+  height: 8px;
+}
+
+/* Buttons */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: var(--color-ink);
+  color: var(--color-cream);
+  border: 1px solid var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: var(--tracking-wider-plus);
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.btn-gold:hover {
+  background: var(--color-gold-deep);
+  border-color: var(--color-gold-deep);
+  color: var(--color-cream);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: var(--tracking-wider-plus);
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.btn-ghost:hover {
+  background: var(--color-ink);
+  color: var(--color-cream);
+}
+
+.btn-gold-solid {
+  background: var(--color-gold);
+  color: var(--color-noir);
+  border-color: var(--color-gold);
+}
+.btn-gold-solid:hover {
+  background: var(--color-gold-deep);
+  border-color: var(--color-gold-deep);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.fade-up {
+  animation: fadeUp 0.8s ease forwards;
 }
