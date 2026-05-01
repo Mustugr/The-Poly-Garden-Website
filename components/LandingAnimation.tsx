@@ -5,12 +5,21 @@ import { useEffect, useState } from "react";
 const GOLD = "#b89651";
 const GOLD_LIGHT = "#c9a961";
 
+// Module-level flag — survives Next.js client-side route changes (the JS module
+// stays in memory) but resets on a real page load (refresh / new tab / direct
+// URL hit). So the cake animation plays exactly when someone lands on home
+// from outside the SPA, and stays out of the way when navigating back from
+// /about, /gallery, etc.
+let hasPlayedThisLoad = false;
+
 export function LandingAnimation() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(() => !hasPlayedThisLoad);
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (hasPlayedThisLoad) return;
+    hasPlayedThisLoad = true;
     document.body.style.overflow = "hidden";
     const fadeT = setTimeout(() => setFading(true), 2000);
     const removeT = setTimeout(() => {

@@ -55,7 +55,7 @@ export default function GalleryPage() {
       </section>
 
       {/* Filters */}
-      <section className="border-y border-gold/15 bg-cream sticky top-[68px] z-30 backdrop-blur-sm">
+      <section className="border-y border-gold/15 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex flex-wrap justify-center gap-2 md:gap-3">
           {filterButtons.map((b) => {
             const active = filter === b.key;
